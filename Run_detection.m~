@@ -1,0 +1,30 @@
+
+path = pwd;
+image_path = strcat(path,'/../DATA1/');
+
+backround = 'bgframe.jpg';
+% load all images 
+[images,backround] = Load_images(image_path,backround);
+
+% build the normalised backround image 
+[normRGBImback , intesityRGBImback]  = NormaliseRGB_S(backround,0);
+
+
+
+[normRGBIm , intesityRGBIm]  = NormaliseRGB_S(Imwork,0);
+
+[MR,MC,Dim] = size(intesityRGBImback);
+
+fore = zeros(MR,MC);
+fore = (abs(intesityRGBIm(:,:)-intesityRGBImback(:,:)) > 15);% ...
+% | (abs(Imwork(:,:,2) - Imback(:,:,2)) > 10) ...
+% | (abs(Imwork(:,:,3) - Imback(:,:,3)) > 10);
+
+foremm = bwmorph(fore,'clean',2);
+foremm = bwmorph(foremm,'close',4);
+
+if fig_vis > 0
+    figure(fig_vis)
+    clf
+    imshow(foremm)
+end
