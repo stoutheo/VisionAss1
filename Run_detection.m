@@ -15,28 +15,30 @@ for i=1:length(clean_images)
     [MR,MC,Dim] = size(intesityRGBIm);
     fore = zeros(MR,MC);
     fore = (abs(intesityRGBIm(:,:)-intesityRGBImback(:,:)) > 15); % ...
-    foremm = bwmorph(fore,'clean',2);
-    foremm = bwmorph(foremm,'close',4);
     
     
     % clear the data
     %sele = Clear_data(foremm,3);
     [sele, information] = Clear_data(foremm,0);
-
-    fore2 = (abs(normRGBIm(:,:,1)./normRGBImback(:,:,1)) > 1.2) ...
-    |  (abs(normRGBIm(:,:,2)./normRGBImback(:,:,2)) > 1.2) ...
-    | (abs(normRGBIm(:,:,3)./normRGBImback(:,:,3)) > 1.2 );    
-    foremm2 = bwmorph(fore2,'clean',2);
-    foremm2 = bwmorph(foremm2,'close',8);
+    
+    foremm = bwmorph(sele,'dilate',1);
+    foremm = bwmorph(foremm,'erode',1);
+    
+    
+    % fore2 = (abs(normRGBIm(:,:,1)./normRGBImback(:,:,1)) > 1.2) ...
+    % |  (abs(normRGBIm(:,:,2)./normRGBImback(:,:,2)) > 1.2) ...
+    % | (abs(normRGBIm(:,:,3)./normRGBImback(:,:,3)) > 1.2 );    
+    % foremm2 = bwmorph(fore2,'clean',2);
+    % foremm2 = bwmorph(foremm2,'close',8);
     
     fig_vis1 = 1;
     
-    s = sele.*foremm2;
+    %s = sele.*foremm2;
     
     if fig_vis1 > 0
         figure(fig_vis1)
         clf
-        imshow(s)
+        imshow(foremm)
     end
     
     %break
