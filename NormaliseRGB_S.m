@@ -1,12 +1,18 @@
 function [ normRGBImage, intesityRGBImage ] = NormaliseRGB_S( Im, vis_flag )
-%NORMALISERGB_S Summary of this function goes here
-%   Detailed explanation goes here
+%NORMALISERGB_S .. RGB normalise of image and an array of the intesity
+%values
 
-
+% sum of the rgb values for each pixel
 RGBt = sum(double(Im),3);
 RGBtd = cat(3,RGBt,RGBt,RGBt);
+% normalised rgb
 normRGBImage = double(Im)./RGBtd;
-intesityRGBImage = int8(RGBt./3); 
+% normalised intesity
+intesityRGBImage = double(RGBt./3); 
+
+% get rid of all the NaN values and replace with 0
+normRGBImage(isnan(normRGBImage)) = 0 ;
+intesityRGBImage(isnan(intesityRGBImage)) = 0 ;
 
 %  old implementation
 
