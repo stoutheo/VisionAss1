@@ -16,13 +16,21 @@ for i=1:length(clean_images)
     fore = zeros(MR,MC);
     fore = (abs(intesityRGBIm(:,:)-intesityRGBImback(:,:)) > 15); % ...
     
+    foremm = bwmorph(fore,'dilate',5);
+    foremm = bwmorph(foremm,'erode',3);
+    %foremm = bwmorph(foremm,'spur',2);
+    %foremm = bwmorph(foremm,'close',3);
+
+    
+
+    
     
     % clear the data
-    %sele = Clear_data(foremm,3);
-    [sele, information] = Clear_data(foremm,0);
+    sele = Clear_data(foremm,0);
+    %[sele, information] = Clear_data(foremm,0);
     
-    foremm = bwmorph(sele,'dilate',1);
-    foremm = bwmorph(foremm,'erode',1);
+    foremm = bwmorph(sele,'dilate',2);
+    foremm = bwmorph(foremm,'spur',4);
     
     
     % fore2 = (abs(normRGBIm(:,:,1)./normRGBImback(:,:,1)) > 1.2) ...
@@ -42,6 +50,6 @@ for i=1:length(clean_images)
     end
     
     %break
-    pause(0.3)
+    %pause(0.3)
     
 end

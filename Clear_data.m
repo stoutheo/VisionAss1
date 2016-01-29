@@ -1,9 +1,11 @@
-function [ select, infos ] = Clear_data( formimage,fig_vis )
+function [ select ] = Clear_data( formimage,fig_vis )
+%function [ select, infos ] = Clear_data( formimage,fig_vis )
+
 %CLEAR_DATA Summary of this function goes here
 %   Detailed explanation goes here
 
 %new_im = double(formimage);
-labeled = bwlabel(formimage,8);
+labeled = bwlabel(formimage,4);
 stats = regionprops(labeled,'all');
 [N,W] = size(stats);
 if N < 1
@@ -34,29 +36,37 @@ if stats(1).Area < 100
 end
 
 % select contours with at least 10% of the area of the biggest contour
-area_limit = stats(1).Area;
+%area_limit = stats(1).Area;
+indexes = [];
+numbering = 1;
 for i = 1 : N
-    last_id = i;
-    if stats(i).Area < 0.2*area_limit
-        break
+    if stats(i).Area > 600
+       indexes(numbering) = i; %last_id 
+       numbering = numbering + 1;
+    elseif stats(i).Area > 400 & stats(i).Solidity > 0.7
+       indexes(numbering) = i; %last_id 
+       numbering = numbering + 1;
+    end
+    if stats(i).Area < 200 
+       break
     end
 end
 
 sel = (labeled==id(1));
-pixels_of_inter = cell(last_id,1);
-Centroids = cell(last_id,1);
-diams = cell(last_id,1);
-pixels_of_inter{1} = stats(1).PixelList ;
-Centroids{1} = stats(1).Centroid;
-diams{1} = stats(1).EquivDiameter;
-for i = 2 : last_id;
-    sel = sel | (labeled==id(i));
-    pixels_of_inter{i} = stats(i).PixelList;
-    Centroids{i} = stats(i).Centroid;
-    diams{i} = stats(i).EquivDiameter;
+%pixels_of_inter = cell(last_id,1);
+%Centroids = cell(last_id,1);
+%diams = cell(last_id,1);
+%pixels_of_inter{1} = stats(1).PixelList ;
+%Centroids{1} = stats(1).Centroid;
+%diams{1} = stats(1).EquivDiameter;
+for i = 1 : length(indexes);
+    sel = sel | (labeled==id(indexes(i)));
+    %pixels_of_inter{i} = stats(i).PixelList;
+    %Centroids{i} = stats(i).Centroid;
+    %diams{i} = stats(i).EquivDiameter;
 end
 
-infos = {pixels_of_inter,Centroids,diams};
+%infos = {pixels_of_inter,Centroids,diams};
 
 select = (sel);
 
