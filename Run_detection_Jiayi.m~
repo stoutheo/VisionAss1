@@ -16,39 +16,6 @@ backround = 'bgframe.jpg';
 % build the normalised backround image 
 [normRGBImback , intesityRGBImback]  = NormaliseRGB_S(clean_backround,0);
 
-%Initialize the location from the first image____________
-[normRGBIm , intesityRGBIm]  = NormaliseRGB_S(clean_images{1},0);
-[MR,MC,Dim] = size(intesityRGBIm);
-fore = zeros(MR,MC);
-fore = (abs(intesityRGBIm(:,:)-intesityRGBImback(:,:)) > 15); % ...
-    
-foren = bwareaopen(fore,30);
-foremm = bwmorph(foren,'dilate',5);
-foremm = bwmorph(foremm,'erode',2);
-    
-foremm = bwmorph(foremm,'spur',8);
-%foremm = bwmorph(foremm,'close',3);
-% clear the data
-%returned mask, without static coach and the notebook
-sele = Clear_data_2(foremm,0);
-    
-%try using original rgb
-[histos,obj_props] = labeling_people(sele,clean_images{1});
-%_____________________________________
-pos_img = zeros(MR,MC,3);
-color_list = {()}
-
-for i = 1 : length(obj_props)
-    humans{i}.props=obj_props(i);
-    humans{i}.histos = histos(:,:,i);
-end
-
-for i = 1:length(humans)
-    human = humans{i};
-    pos_img = 
-end
-
-
 for i=1:length(clean_images)
     
     [normRGBIm , intesityRGBIm]  = NormaliseRGB_S(clean_images{i},0);
@@ -63,9 +30,6 @@ for i=1:length(clean_images)
     foremm = bwmorph(foremm,'spur',8);
     %foremm = bwmorph(foremm,'close',3);
 
-    
-
-    
     % clear the data
     %returned mask, without static coach and the notebook
     sele = Clear_data_2(foremm,0);

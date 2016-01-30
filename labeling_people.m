@@ -1,4 +1,4 @@
-function [hists,obj_props]=labeling_people(mask,img_rgb)
+function [rhist,ghist,bhist,obj_props]=labeling_people(mask,img_rgb)
 %img_rgb can be original rgb image or normalised rgb image
 
 [MR,MC,DIM]=size(img_rgb);
@@ -31,11 +31,14 @@ for i = 1 : length(obj_props)
     objs{i} = obj;
     
     %calculate variance or mean if needed
-    rhist = histcounts(obj(:,1),edges,'Normalization','probability');
-    ghist = histcounts(obj(:,2),edges,'Normalization','probability');
-    ghist = histcounts(obj(:,3),edges,'Normalization','probability');
+    rhist = hist(obj(:,1),edges);
+    rhist = rhist/ sum(rhist);
+    ghist = hist(obj(:,2),edges);
+    ghist = ghist/ sum(ghist);
+    bhist = hist(obj(:,3),edges);
+    bhist = bhist/ sum(bhist);
     
-    rgbhists = [rhist;ghist;ghist];
-    hists(:,:,i) = rgbhists;
+    %rgbhists = [rhist;ghist;bhist];
+    %hists(:,:,i) = rgbhists;
 end
 

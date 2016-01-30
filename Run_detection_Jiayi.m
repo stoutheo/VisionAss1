@@ -30,15 +30,12 @@ for i=1:length(clean_images)
     foremm = bwmorph(foremm,'spur',8);
     %foremm = bwmorph(foremm,'close',3);
 
-    
-
-    
     % clear the data
     %returned mask, without static coach and the notebook
     sele = Clear_data_2(foremm,0);
     
     %try using original rgb
-    [histos,obj_props] = labeling_people(sele,clean_images{i});
+    [rhistos,ghistos,bhistos,obj_props] = labeling_people(sele,clean_images{i});
     
     %[sele, information] = Clear_data(foremm,0);
     
