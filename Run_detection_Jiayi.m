@@ -59,8 +59,6 @@ for i=1:length(clean_images)
         clf
         imshow(sele)
     end
-    
     %break
     %pause(0.3)
-    
 end
