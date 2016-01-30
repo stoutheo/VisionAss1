@@ -4,10 +4,10 @@ image_path = strcat(path,'/../DATA1/');
 
 % restriction circles 
 global personc1; global pcc2; global personr1; global pcr2;
-personc1 = [200,170];
+personc1 = [150,223];
 pcc2 = [121, 222];
-personr1 = 30;
-pcr2 = 3;
+personr1 = 3;
+pcr2 = 1;
 
 backround = 'bgframe.jpg';
 % load all images 
@@ -32,6 +32,7 @@ for i=1:length(clean_images)
 
     
 
+    %foremm(200:222, 100:121) = 150;
     
     % clear the data
     sele = Clear_data_2(foremm,0);
@@ -40,7 +41,6 @@ for i=1:length(clean_images)
     %foremm = bwmorph(sele,'dilate',2);
     %foremm = bwmorph(foremm,'spur',8);
     
-    %sele(150:170,180:200) = 1;
     
     % fore2 = (abs(normRGBIm(:,:,1)./normRGBImback(:,:,1)) > 1.2) ...
     % |  (abs(normRGBIm(:,:,2)./normRGBImback(:,:,2)) > 1.2) ...
