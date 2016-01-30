@@ -1,4 +1,4 @@
-function [rhist,ghist,bhist,obj_props]=labeling_people(mask,img_rgb)
+function [rhists,ghists,bhists,obj_props]=labeling_people(mask,img_rgb)
 %img_rgb can be original rgb image or normalised rgb image
 
 [MR,MC,DIM]=size(img_rgb);
@@ -37,6 +37,10 @@ for i = 1 : length(obj_props)
     ghist = ghist/ sum(ghist);
     bhist = hist(obj(:,3),edges);
     bhist = bhist/ sum(bhist);
+    
+    rhists{i}=rhist;
+    ghists{i}=ghist;
+    bhists{i}=bhist;
     
     %rgbhists = [rhist;ghist;bhist];
     %hists(:,:,i) = rgbhists;
