@@ -1,10 +1,11 @@
-function [rhists,ghists,bhists,obj_props]=labeling_people(mask,img_rgb)
+function [rhists,ghists,bhists,obj_props,label]=labeling_people(mask,img_rgb)
 %img_rgb can be original rgb image or normalised rgb image
 
 [MR,MC,DIM]=size(img_rgb);
 
 %labeling objects from the mask
-labeled = logical(bwlabel(mask,4));
+labeling = bwlabel(mask,4);
+labeled = logical(labeling);
 
 obj_props = regionprops(labeled,'all');
 
@@ -29,6 +30,7 @@ for i = 1 : length(obj_props)
         obj(j,:)=img_rgb(pix_index(2),pix_index(1),:);
     end
     objs{i} = obj;
+    label{i} = (labeling==i);
     
     %calculate variance or mean if needed
     rhist = hist(obj(:,1),edges);

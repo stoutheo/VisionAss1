@@ -35,30 +35,23 @@ for i=1:length(clean_images)
     sele = Clear_data_2(foremm,0);
     
     %try using original rgb
-    [rhistos,ghistos,bhistos,obj_props] = labeling_people(sele,clean_images{i});
+    [rhistos,ghistos,bhistos,obj_props,labels] = labeling_people(sele,clean_images{i});
     
-    %[sele, information] = Clear_data(foremm,0);
-    
-    %foremm = bwmorph(sele,'dilate',2);
-    %foremm = bwmorph(foremm,'spur',8);
-    
-    %sele(150:170,180:200) = 1;
-    
-    % fore2 = (abs(normRGBIm(:,:,1)./normRGBImback(:,:,1)) > 1.2) ...
-    % |  (abs(normRGBIm(:,:,2)./normRGBImback(:,:,2)) > 1.2) ...
-    % | (abs(normRGBIm(:,:,3)./normRGBImback(:,:,3)) > 1.2 );    
-    % foremm2 = bwmorph(fore2,'clean',2);
-    % foremm2 = bwmorph(foremm2,'close',8);
     
     fig_vis1 = 1;
+    
+    h = labels{1};
+    k = obj_props(1);
+    h(int32(k.Centroid(2)),int32(k.Centroid(1))) = 0;
     
     %s = sele.*foremm2;
     
     if fig_vis1 > 0
         figure(fig_vis1)
         clf
-        imshow(sele)
+        imshow(h)
     end
+    
     %break
     %pause(0.3)
 end
