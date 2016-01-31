@@ -38,7 +38,7 @@ for i=1:length(clean_images)
     [rhistos,ghistos,bhistos,obj_props,labels] = labeling_people(sele,clean_images{i});
     
     
-    if isvarname(rgbhist_struct)==0
+    if isvarname('rgbhist_struct')
         rgbhist_struct = zeros(length(labels),3);
     end
     [rgbhist_struct,colour_map] = Assign_histlabels( rgbhist_struct, rhistos,ghistos,bhistos);

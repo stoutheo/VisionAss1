@@ -20,6 +20,9 @@ else
     edges = zeros(256,1);
 end
 
+rhists = zeros(length(obj_props),length(edges));
+ghists = zeros(length(obj_props),length(edges));
+bhists = zeros(length(obj_props),length(edges));
 
 for i = 1 : length(obj_props)
     obj = zeros(length(obj_props(i).PixelList),3);
@@ -41,9 +44,9 @@ for i = 1 : length(obj_props)
     bhist = hist(obj(:,3),edges);
     bhist = bhist/ sum(bhist);
     
-    rhists{i}=rhist;
-    ghists{i}=ghist;
-    bhists{i}=bhist;
+    rhists(i,:)=rhist;
+    ghists(i,:)=ghist;
+    bhists(i,:)=bhist;
     
     %rgbhists = [rhist;ghist;bhist];
     %hists(:,:,i) = rgbhists;
