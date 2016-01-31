@@ -8,7 +8,7 @@ personc1 = [200,170];
 pcc2 = [121, 222];
 personr1 = 30;
 pcr2 = 3;
-
+clc
 backround = 'bgframe.jpg';
 % load all images 
 [images,backround, clean_images,clean_backround] = Load_images(image_path,backround);

@@ -31,6 +31,7 @@ for i = 1 : length(obj_props)
     end
     objs{i} = obj;
     label{i} = (labeling==i);
+    obj_props(i).Mask = label{i};
     
     %calculate variance or mean if needed
     rhist = hist(obj(:,1),edges);
