@@ -7,7 +7,7 @@ red = bhattacharyya(oldhist_r,hist_r);
 green = bhattacharyya(oldhist_g,hist_g);
 blue = bhattacharyya(oldhist_b,hist_b);
 
-result = sum(red,green,blue);
+result = red+green+blue;
   
 end
 
