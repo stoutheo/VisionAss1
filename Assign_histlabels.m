@@ -9,10 +9,11 @@ if sum(sum(sum(rgbhist_mem)))==0;
        rgbhist_mem(i,2,:) = ghistos(i,:);
        rgbhist_mem(i,3,:) = bhistos(i,:);
     end
-    colour_indexing = [1:dims(1)];
+    colour_indexing = [1:dims(1)]';
 else
     % update struct of hists and assign colour indexes
     [ rgbhist_mem, colour_indexing ] = Find_best_matchinghist( rgbhist_mem ,rhistos,ghistos,bhistos);
+ 
 end
 
 end
