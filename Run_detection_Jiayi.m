@@ -38,6 +38,13 @@ for i=1:length(clean_images)
     [rhistos,ghistos,bhistos,obj_props,labels] = labeling_people(sele,clean_images{i});
     
     
+    if isvarname(rgbhist_struct)==0
+        rgbhist_struct = zeros(length(labels),3);
+    end
+    [rgbhist_struct,colour_map] = Assign_histlabels( rgbhist_struct, rhistos,ghistos,bhistos);
+    
+    
+    %---------------------------------------------
     fig_vis1 = 1;
     
     h = labels{1};
@@ -52,6 +59,6 @@ for i=1:length(clean_images)
         imshow(h)
     end
     
-    %break
+    break
     %pause(0.3)
 end

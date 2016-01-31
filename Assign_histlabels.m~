@@ -1,0 +1,8 @@
+function [ rgbhist_mem ] = Assign_histlabels( rgbhist_mem, rhistos,ghistos,bhistos,obj_props,labels )
+%ASSIGN_HISTLABELS Summary of this function goes here
+
+
+if rgbhist_mem
+
+end
+
