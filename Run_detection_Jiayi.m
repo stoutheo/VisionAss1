@@ -1,3 +1,5 @@
+clear
+clc
 
 path = pwd;
 image_path = strcat(path,'/../DATA1/');
@@ -43,7 +45,7 @@ for i=1:length(clean_images)
         rgbhist_struct = zeros(length(labels),3,dims_hist(2));
     end
     [rgbhist_struct,colour_map] = Assign_histlabels( rgbhist_struct, rhistos,ghistos,bhistos);
-    
+    colour_map
     
     %---------------------------------------------
     fig_vis1 = 1;
