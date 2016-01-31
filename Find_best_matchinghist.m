@@ -15,15 +15,7 @@ for regions=1:rhist_dim(1)
     % find index with the smallest distance
     index = find(vals==min(vals));
     
-    f = 0
-    for i = 1:length(index)
-        mins(i) = vals(index(i))
-    end
     % update the struct of the histograms 
-    %z = 0
-    %size(rhistos(regions,:)), size(rgbhist_mem(index,1,:))
-    %size(ghistos(regions,:)), size(rgbhist_mem(index,2,:))
-    %size(bhistos(regions,:)), size(rgbhist_mem(index,3,:))
     rgbhist_mem(index,1,:) = rhistos(regions,:);  
     rgbhist_mem(index,2,:) = ghistos(regions,:);
     rgbhist_mem(index,3,:) = bhistos(regions,:);
