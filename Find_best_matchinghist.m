@@ -10,7 +10,7 @@ for regions=1:rhist_dim(1)
     vals = ones(dims(1),1)*1000;
     % compute distance of histograms
     for i=1:dims(1)
-        vals(i) = Eval_patch_hist(rgbhist_mem(i,1),rgbhist_mem(i,2),rgbhist_mem(i,3),rhistos(regions,:),ghistos(regions,:),bhistos(regions,:));
+        vals(i) = Eval_patch_hist(rgbhist_mem(i,1,:),rgbhist_mem(i,2,:),rgbhist_mem(i,3,:),rhistos(regions,:),ghistos(regions,:),bhistos(regions,:));
     end
     % find index with the smallest distance
     index = find(vals==min(vals));
@@ -21,7 +21,7 @@ for regions=1:rhist_dim(1)
     rgbhist_mem(index,3,:) = bhistos(regions,:);
     
     % indexs of the colours assigned to each area(patch)
-    colour_indexing(regions) = index; 
+    colour_indexing(regions,1) = index; 
 end
 
 

@@ -2,10 +2,10 @@ function [ result ] = Eval_patch_hist( oldhist_r,oldhist_g,oldhist_b, hist_r,his
 %COMPARE_HIST Compute the distance between two patch in all channels from
 %the histogramms
 
-
-red = bhattacharyya(oldhist_r,hist_r);
-green = bhattacharyya(oldhist_g,hist_g);
-blue = bhattacharyya(oldhist_b,hist_b);
+histdim = size(hist_r);
+red = bhattacharyya(reshape(oldhist_r(1,1,:),1,histdim(2)),hist_r(1,:));
+green = bhattacharyya(reshape(oldhist_g(1,1,:),1,histdim(2)),hist_g(1,:)) ;
+blue = bhattacharyya(reshape(oldhist_b(1,1,:),1,histdim(2)),hist_b(1,:)) ;
 
 result = red+green+blue;
   

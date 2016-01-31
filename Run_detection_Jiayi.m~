@@ -26,7 +26,7 @@ for i=1:length(clean_images)
     fore = (abs(intesityRGBIm(:,:)-intesityRGBImback(:,:)) > 15); % ...
     
     foren = bwareaopen(fore,30);
-    foremm = bwmorph(foren,'dilate',4.5);
+    foremm = bwmorph(foren,'dilate',5);
     foremm = bwmorph(foremm,'erode',2);
     
     foremm = bwmorph(foremm,'spur',8);
@@ -37,10 +37,7 @@ for i=1:length(clean_images)
     sele = Clear_data_2(foremm,0);
     
     %try using original rgb
-    
-    %[rhistos,ghistos,bhistos,obj_props,labels] = labeling_people(sele,clean_images{i});
-    [rhistos,ghistos,bhistos,obj_props,labels] = labeling_people(sele,normRGBIm);
-
+    [rhistos,ghistos,bhistos,obj_props,labels] = labeling_people(sele,clean_images{i});
     
     
     if exist('rgbhist_struct','var')==0
@@ -48,7 +45,7 @@ for i=1:length(clean_images)
         rgbhist_struct = zeros(length(labels),3,dims_hist(2));
     end
     [rgbhist_struct,colour_map] = Assign_histlabels( rgbhist_struct, rhistos,ghistos,bhistos);
-    colour_map
+        colour_map
     
     %---------------------------------------------
     fig_vis1 = 1;
@@ -62,7 +59,7 @@ for i=1:length(clean_images)
     if fig_vis1 > 0
         figure(fig_vis1)
         clf
-        imshow(sele)
+        imshow(h)
     end
     
     %break
