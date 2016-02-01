@@ -16,9 +16,9 @@ for regions=1:rhist_dim(1)
     index = find(vals==min(vals));
     
     % update the struct of the histograms 
-    rgbhist_mem(index,1,:) = rhistos(regions,:);  
-    rgbhist_mem(index,2,:) = ghistos(regions,:);
-    rgbhist_mem(index,3,:) = bhistos(regions,:);
+    %rgbhist_mem(index,1,:) = rhistos(regions,:);  
+    %rgbhist_mem(index,2,:) = ghistos(regions,:);
+    %rgbhist_mem(index,3,:) = bhistos(regions,:);
     
     % indexs of the colours assigned to each area(patch)
     colour_indexing(regions,1) = index; 

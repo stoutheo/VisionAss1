@@ -6,8 +6,7 @@ function [ final_im ] = Colouring_people( label, coloumap )
 
 final_im = zeros(x,y,3);
 
-coloumap
-size(label)
+
 for i=1:length(coloumap)
 
     % white person
