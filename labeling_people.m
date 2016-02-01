@@ -3,14 +3,36 @@ function [rhists,ghists,bhists,obj_props,label]=labeling_people(mask,img_rgb)
 
 [MR,MC,DIM]=size(img_rgb);
 
-%labeling objects from the mask
-labeling = bwlabel(mask,4);
-labeled = logical(labeling);
-
-obj_props = regionprops(labeled,'all');
+%labeling objects from the mask,initial attemp
+attempt_labeling = bwlabel(mask,4);
+attempt_labeled = logical(attempt_labeling);
+attempt_obj_props = regionprops(attempt_labeled,'all');
 
 full_num_objs = 4;
-num_objs = length(obj_props);
+num_objs = length(attempt_obj_props);
+
+if num_objs==2
+    mask = CutObject(attempt_obj_props(1),mask);
+    mask = CutObject(attempt_obj_props(2),mask);
+    mask = bwmorph(mask,'erode',1);
+elseif num_objs == 3
+    biggest_obj_area = 0.0;
+    for i = 1:length(attempt_obj_props)
+        if attempt_obj_props(i).Area>biggest_obj_area
+            biggest_obj_area = attempt_obj_props(i).Area;
+            biggest_index = i;
+        end
+    end
+    mask = CutObject(attempt_obj_props(biggest_index),mask);
+    mask = bwmorph(mask,'erode',1);
+end
+
+
+%redo everything
+labeling = bwlabel(mask,4);
+labeled = logical(labeling);
+obj_props = regionprops(labeled,'all');
+
 
 %generate bins edges for historgram
 max_val = max(max(max(img_rgb)));
@@ -27,24 +49,7 @@ rhists = zeros(full_num_objs,length(edges));
 ghists = zeros(full_num_objs,length(edges));
 bhists = zeros(full_num_objs,length(edges));
 
-if num_objs==2
-    obj_props(3)=obj_props(1);
-    %label{3} = (labeling==1);
-    obj_props(4)=obj_props(2);
-    %label{4} = (labeling==2);
-elseif num_objs == 3
-    biggest_obj_area = 0.0;
-    for i = 1:length(obj_props)
-        if obj_props(i).Area>biggest_obj_area
-            biggest_obj_area = obj_props(i).Area;
-            biggest_index = i;
-        end
-    end
-    obj_props(4) = obj_props(biggest_index);
-    %label{4} = (labeling==biggest_index);
-end
-
-%length(obj_props)
+length(obj_props)
 for i = 1 : length(obj_props)
     obj = zeros(length(obj_props(i).PixelList),3);
     %img_reshape = reshape(img_rgb,[MR*MC,DIM]);
@@ -71,15 +76,4 @@ for i = 1 : length(obj_props)
     
     %rgbhists = [rhist;ghist;bhist];
     %hists(:,:,i) = rgbhists;
-end
-
-if num_objs == 2
-    label{3} = (labeling==1);
-    obj_props(3).Mask = label{3};
-    label{4} = (labeling==2);
-    obj_props(4).Mask = label{4};
-elseif num_objs == 3
-    label{4} = (labeling==biggest_index);
-    obj_props(4).Mask = label{4};
-end
 end
