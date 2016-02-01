@@ -27,7 +27,7 @@ for i=1:length(clean_images)
     
     foren = bwareaopen(fore,30);
     foremm = bwmorph(foren,'dilate',4.5);
-    foremm = bwmorph(foremm,'erode',2);
+    foremm = bwmorph(foremm,'erode',1);
     
     foremm = bwmorph(foremm,'spur',8);
     %foremm = bwmorph(foremm,'close',3);
@@ -48,23 +48,28 @@ for i=1:length(clean_images)
         rgbhist_struct = zeros(length(labels),3,dims_hist(2));
     end
     [rgbhist_struct,colour_map] = Assign_histlabels( rgbhist_struct, rhistos,ghistos,bhistos);
-    colour_map
+    
+    sele2 = Colouring_people(labels, colour_map );
+    
     
     %---------------------------------------------
     fig_vis1 = 1;
     
-    h = labels{1};
-    k = obj_props(1);
-    h(int32(k.Centroid(2)),int32(k.Centroid(1))) = 0;
+    %h = labels{1};
+    %k = obj_props(1);
+    %h(int32(k.Centroid(2)),int32(k.Centroid(1))) = 0;
     
     %s = sele.*foremm2;
     
     if fig_vis1 > 0
         figure(fig_vis1)
         clf
+        subplot(1,2,1);
         imshow(sele)
+        subplot(1,2,2);
+        imshow(sele2)
     end
     
     %break
-    %pause(0.3)
+    pause(0.5)
 end
