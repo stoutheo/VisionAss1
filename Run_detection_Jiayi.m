@@ -40,8 +40,7 @@ for i=1:length(clean_images)
     
     %[rhistos,ghistos,bhistos,obj_props,labels] = labeling_people(sele,clean_images{i});
     [rhistos,ghistos,bhistos,obj_props,labels] = labeling_people(sele,normRGBIm);
-
-    
+    %length(obj_props)
     
     if exist('rgbhist_struct','var')==0
         dims_hist = size(rhistos);
@@ -51,6 +50,7 @@ for i=1:length(clean_images)
     
     sele2 = Colouring_people(labels, colour_map );
     
+    sele3 = labels{1} + labels{2} + labels{3} +labels{4};
     
     %---------------------------------------------
     fig_vis1 = 1;
@@ -65,9 +65,9 @@ for i=1:length(clean_images)
         figure(fig_vis1)
         clf
         subplot(1,2,1);
-        imshow(sele)
-        subplot(1,2,2);
         imshow(sele2)
+        subplot(1,2,2);
+        imshow(sele3)
     end
     
     %break
