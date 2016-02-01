@@ -51,7 +51,7 @@ for i=1:length(clean_images)
     end
     
     [rgbhist_struct,position_struct,colour_map] = Assign_histlabels( rgbhist_struct,obj_props, rhistos,ghistos,bhistos, position_struct);
-    colour_map'
+    colour_map
     sele2 = Colouring_people(labels, colour_map );
     
     sele3 = labels{1} + labels{2} + labels{3} +labels{4};

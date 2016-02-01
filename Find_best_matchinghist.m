@@ -36,18 +36,19 @@ if length(unique(colour_indexing)) < 4
        if length(res)>1
           for j=1:length(res)
               if j==1
+                  %usedindex = ones(length(res),1)*10;
                   index2 = 10;
               end
               valpos = ones(dimpos(1),1)*1000;
               for k=1:dimpos(1)
                   valpos(k) = Eval_patch_pos(position_mem(k,:),position_cur(j,:));
-                  if k == index2
+                  if any(k == usedindex) %usedindex
                      valpos(k) = 1000;
                   end
               end
               valpos
               index2 = find(valpos==min(valpos));
-              
+              %usedindex(j) = index2;
               colour_indexing(j,1) = index2; 
               % update the struct of the positions 
               pos = position_cur(j).Centroid;
