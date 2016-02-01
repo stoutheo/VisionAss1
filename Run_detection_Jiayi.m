@@ -26,12 +26,14 @@ for i=1:length(clean_images)
     fore = (abs(intesityRGBIm(:,:)-intesityRGBImback(:,:)) > 15); % ...
     
     foren = bwareaopen(fore,30);
-    foremm = bwmorph(foren,'dilate',4.5);
+    foremm = bwmorph(foren,'dilate',3.5);
     foremm = bwmorph(foremm,'erode',1);
+    %foremm = bwmorph(foremm,'spur',8);
     
-    foremm = bwmorph(foremm,'spur',8);
-    %foremm = bwmorph(foremm,'close',3);
-
+    %foremm = bwmorph(foren,'dilate',4.5);
+    %foremm = bwmorph(foremm,'erode',1);
+    %foremm = bwmorph(foremm,'spur',8);
+    
     % clear the data
     %returned mask, without static coach and the notebook
     sele = Clear_data_2(foremm,0);
@@ -45,9 +47,11 @@ for i=1:length(clean_images)
     if exist('rgbhist_struct','var')==0
         dims_hist = size(rhistos);
         rgbhist_struct = zeros(length(labels),3,dims_hist(2));
+        position_struct = zeros(length(obj_props),2);
     end
-    [rgbhist_struct,colour_map] = Assign_histlabels( rgbhist_struct, rhistos,ghistos,bhistos);
     
+    [rgbhist_struct,position_struct,colour_map] = Assign_histlabels( rgbhist_struct,obj_props, rhistos,ghistos,bhistos, position_struct);
+    colour_map'
     sele2 = Colouring_people(labels, colour_map );
     
     sele3 = labels{1} + labels{2} + labels{3} +labels{4};
@@ -56,7 +60,8 @@ for i=1:length(clean_images)
     fig_vis1 = 1;
     
     %h = labels{1};
-    %k = obj_props(1);
+    %k = obj_props(1);c
+    
     %h(int32(k.Centroid(2)),int32(k.Centroid(1))) = 0;
     
     %s = sele.*foremm2;
@@ -70,6 +75,8 @@ for i=1:length(clean_images)
         imshow(sele3)
     end
     
-    %break
-    pause(0.5)
+    %if i == 2
+    %    break
+    %end
+    pause(1)
 end
