@@ -19,8 +19,8 @@ for regions=1:rhist_dim(1)
     %finalvals = vals + valpos/100;
     
     % find index with the smallest distance
-    index = find(vals==min(vals));
-    
+    index = find(vals==min(vals))
+        
     % update the struct of the histograms 
     %rgbhist_mem(index,1,:) = rhistos(regions,:);  
     %rgbhist_mem(index,2,:) = ghistos(regions,:);
@@ -42,11 +42,11 @@ if length(unique(colour_indexing)) < 4
               valpos = ones(dimpos(1),1)*1000;
               for k=1:dimpos(1)
                   valpos(k) = Eval_patch_pos(position_mem(k,:),position_cur(j,:));
-                  if any(k == usedindex) %usedindex
+                  %if any(k == usedindex) %usedindex
+                  if k == index2 %usedindex
                      valpos(k) = 1000;
                   end
               end
-              valpos
               index2 = find(valpos==min(valpos));
               %usedindex(j) = index2;
               colour_indexing(j,1) = index2; 

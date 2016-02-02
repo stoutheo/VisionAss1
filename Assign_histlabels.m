@@ -19,7 +19,7 @@ if sum(sum(sum(rgbhist_mem)))==0;
     end
 else
     % update struct of hists and assign colour indexes
-    [ rgbhist_mem, position_mem, colour_indexing ] = Find_best_matchinghist3( rgbhist_mem, position_cur ,rhistos,ghistos,bhistos,position_mem);
+    [ rgbhist_mem, position_mem, colour_indexing ] = Find_best_matchinghist( rgbhist_mem, position_cur ,rhistos,ghistos,bhistos,position_mem);
  
 end
 

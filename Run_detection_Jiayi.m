@@ -26,9 +26,9 @@ for i=1:length(clean_images)
     fore = (abs(intesityRGBIm(:,:)-intesityRGBImback(:,:)) > 15); % ...
     
     foren = bwareaopen(fore,30);
-    foremm = bwmorph(foren,'dilate',3.5);
+    foremm = bwmorph(foren,'dilate',2.5);
     foremm = bwmorph(foremm,'erode',1);
-    %foremm = bwmorph(foremm,'spur',8);
+    foremm = bwmorph(foremm,'spur',8);
     
     %foremm = bwmorph(foren,'dilate',4.5);
     %foremm = bwmorph(foremm,'erode',1);
@@ -38,6 +38,8 @@ for i=1:length(clean_images)
     %returned mask, without static coach and the notebook
     sele = Clear_data_2(foremm,0);
     
+    sele = bwmorph(sele,'close',1);
+
     %try using original rgb
     
     %[rhistos,ghistos,bhistos,obj_props,labels] = labeling_people(sele,clean_images{i});
