@@ -15,16 +15,18 @@ for regions=1:rhist_dim(1)
         vals(i) = Eval_patch_hist(rgbhist_mem(i,1,:),rgbhist_mem(i,2,:),rgbhist_mem(i,3,:),rhistos(regions,:),ghistos(regions,:),bhistos(regions,:));
     end
     
+    vals
+    
     %x = [vals, valpos]
     %finalvals = vals + valpos/100;
     
     % find index with the smallest distance
-    index = find(vals==min(vals));
+    index = find(vals==min(vals))
     
     % update the struct of the histograms 
-    %rgbhist_mem(index,1,:) = rhistos(regions,:);  
-    %rgbhist_mem(index,2,:) = ghistos(regions,:);
-    %rgbhist_mem(index,3,:) = bhistos(regions,:);
+    rgbhist_mem(index,1,:) = rhistos(regions,:);  
+    rgbhist_mem(index,2,:) = ghistos(regions,:);
+    rgbhist_mem(index,3,:) = bhistos(regions,:);
     
     % indexs of the colours assigned to each area(patch)
     colour_indexing(regions,1) = index; 
@@ -53,6 +55,13 @@ if length(unique(colour_indexing)) < 4
               pos = position_cur(j).Centroid;
               position_mem(j,1) = pos(2);
               position_mem(j,2) = pos(1);
+              
+              % update the struct of the histograms 
+              rgbhist_mem(index2,1,:) = rhistos(j,:);  
+              rgbhist_mem(index2,2,:) = ghistos(j,:);
+              rgbhist_mem(index2,3,:) = bhistos(j,:);
+    
+              
           end
        end
    end

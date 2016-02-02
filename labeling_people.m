@@ -14,7 +14,7 @@ num_objs = length(attempt_obj_props);
 if num_objs==2
     mask = CutObject(attempt_obj_props(1),mask);
     mask = CutObject(attempt_obj_props(2),mask);
-    mask = bwmorph(mask,'erode',1);
+    mask = bwmorph(mask,'clean',1);
 elseif num_objs == 3
     biggest_obj_area = 0.0;
     for i = 1:length(attempt_obj_props)
@@ -24,9 +24,10 @@ elseif num_objs == 3
         end
     end
     mask = CutObject(attempt_obj_props(biggest_index),mask);
-    mask = bwmorph(mask,'erode',1);
+    mask = bwmorph(mask,'clean',1);
 end
 
+imshow(mask)
 
 %redo everything
 labeling = bwlabel(mask,4);
@@ -49,7 +50,7 @@ rhists = zeros(full_num_objs,length(edges));
 ghists = zeros(full_num_objs,length(edges));
 bhists = zeros(full_num_objs,length(edges));
 
-length(obj_props)
+obj_props_length = length(obj_props)
 for i = 1 : length(obj_props)
     obj = zeros(length(obj_props(i).PixelList),3);
     %img_reshape = reshape(img_rgb,[MR*MC,DIM]);

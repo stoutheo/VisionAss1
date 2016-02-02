@@ -32,6 +32,9 @@ function bdist = bhattacharyya(histogram1, histogram2)
     
     %% get the distance between the two distributions as follows
     
+    %bcoeff
+    
     bdist = sqrt(1 - bcoeff);
+    %bdist = -log(bcoeff);
 
 end
