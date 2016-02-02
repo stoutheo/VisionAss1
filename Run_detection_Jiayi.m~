@@ -30,6 +30,7 @@ for i=1:length(clean_images)
     foremm = bwmorph(foremm,'erode',1);
     foremm = bwmorph(foremm,'spur',8);
     
+    %foremm = bwmorph(foren,'dilate',4.5);
     %foremm = bwmorph(foremm,'erode',1);
     %foremm = bwmorph(foremm,'spur',8);
     
@@ -38,15 +39,12 @@ for i=1:length(clean_images)
     sele = Clear_data_2(foremm,0);
     
     sele = bwmorph(sele,'close',1);
-    
-    %sele = bwmorph(sele,'spur',16);
 
     %try using original rgb
     
     %[rhistos,ghistos,bhistos,obj_props,labels] = labeling_people(sele,clean_images{i});
     [rhistos,ghistos,bhistos,obj_props,labels] = labeling_people(sele,normRGBIm);
-    
-    
+    %length(obj_props)
     
     if exist('rgbhist_struct','var')==0
         dims_hist = size(rhistos);
@@ -82,7 +80,5 @@ for i=1:length(clean_images)
     %if i == 2
     %    break
     %end
-    pause(0.1)
-    i
     pause(0.1)
 end

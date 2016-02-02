@@ -10,64 +10,67 @@ colour_indexing = zeros(rhist_dim(1),1);
 
 for regions=1:rhist_dim(1)
     vals = ones(dims(1),1)*1000;
-    valpos = ones(dimpos(1),1)*1000;
-
     % compute distance of histograms
     for i=1:dims(1)
         vals(i) = Eval_patch_hist(rgbhist_mem(i,1,:),rgbhist_mem(i,2,:),rgbhist_mem(i,3,:),rhistos(regions,:),ghistos(regions,:),bhistos(regions,:));
     end
     
-    for k=1:dimpos(1)
-        valpos(k) = Eval_patch_pos(position_mem(k,:),position_cur(regions,:));
-    end
-
+    %vals
     %x = [vals, valpos]
-    finalvals = vals .* valpos;
+    %finalvals = vals + valpos/100;
     
     % find index with the smallest distance
-    index = find(finalvals==min(finalvals));
+    index = find(vals==min(vals));
     
-    % update the struct of the histograms 
-    %rgbhist_mem(index,1,:) = rhistos(regions,:);  
-    %rgbhist_mem(index,2,:) = ghistos(regions,:);
-    %rgbhist_mem(index,3,:) = bhistos(regions,:);
-    
+    if length(index)>1
+        vals
+        index
+        index = index(1)
+        
+    else
+        % update the struct of the histograms 
+        rgbhist_mem(index,1,:) = rhistos(regions,:);  
+        rgbhist_mem(index,2,:) = ghistos(regions,:);
+        rgbhist_mem(index,3,:) = bhistos(regions,:);
+    end
     % indexs of the colours assigned to each area(patch)
     colour_indexing(regions,1) = index; 
 end   
 
-% 
-% if length(unique(colour_indexing)) < 4
-%    for i=1:length(colour_indexing)
-%        res = find(colour_indexing==colour_indexing(i));
-%        if length(res)>1
-%           for j=1:length(res)
-%               if j==1
-%                   usedindex = ones(length(res),1)*10;
-%               end
-%               valpos = ones(dimpos(1),1)*1000;
-%               for k=1:dimpos(1)
-%                   valpos(k) = Eval_patch_pos(position_mem(k,:),position_cur(j,:));
-%                   if any(k == usedindex) %usedindex
-%                      valpos(k) = 1000;
-%                   end
-%               end
-%               valpos
-%               index2 = find(valpos==min(valpos));
-%               usedindex(j) = index2;
-%               colour_indexing(j,1) = index2; 
-%               % update the struct of the positions 
-%               pos = position_cur(j).Centroid;
-%               position_mem(j,1) = pos(2);
-%               position_mem(j,2) = pos(1);
-%           end
-%        end
-%    end
-%end
+disp('next round ---------------')
+d = [1,2,3,4];
+while length(unique(colour_indexing)) < 4
+      for regions=1:dimpos(1)
+
+          valpos = ones(dimpos(1),1)*1000;
+          for k=1:rhist_dim(1)
+              valpos(k) = Eval_patch_pos(position_mem(k,:),position_cur(regions,:));
+          end
+          valpos
+      
+      va = valpos.* vals;
+      index2 = find(va==min(va));
+      %usedindex(res(j)) = index2;
+
+      colour_indexing(regions,1) = index2; 
+
+      %min(valpos)
+      %distance = Eval_patch_pos(position_mem(res(j),:),position_cur(res(j),:))
+
+      % update the struct of the positions 
+      pos = position_cur(regions).Centroid;
+      position_mem(regions,1) = pos(2);
+      position_mem(regions,2) = pos(1);
+
+      % update the struct of the histograms 
+      rgbhist_mem(index2,1,:) = rhistos(regions,:);  
+      rgbhist_mem(index2,2,:) = ghistos(regions,:);
+      rgbhist_mem(index2,3,:) = bhistos(regions,:);
+      end
+end
+  
+colour_indexing
 
     
 end
-
-
-
 

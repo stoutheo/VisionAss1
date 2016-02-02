@@ -45,25 +45,20 @@ while length(unique(colour_indexing)) < 4
        res = find(colour_indexing==colour_indexing(i))
        pause(1)
        if length(res)>1
+          valpos = ones(dimpos(1),1)*1000; 
           for j=1:length(res)
               if j==1
                   index2 = 10;
                   %usedindex = ones(length(res),1)*10;
               end
-              valpos = ones(dimpos(1),1)*1000;
+              %valpos = ones(dimpos(1),1)*1000;
+            
               %for k=1:dimpos(1)
-              %    valpos(k) = Eval_patch_pos(position_mem(k,:),position_cur(res(j),:));
+              valpos(j) = Eval_patch_pos(position_mem(j,:),position_cur(res(j),:));
                   %if any(usedindex == k ) %usedindex
-              %    if k == index2
-              %       valpos(k) = 500;
-              %    end
-              %end
-              for k=1:dimpos(1)
-                  valpos(k) = Eval_patch_pos(position_mem(k,:),position_cur(res(j),:));
-                  %if any(usedindex == k ) %usedindex
-                  if k == index2
-                     valpos(k) = 500;
-                  end
+                  %if k == index2
+                  %   valpos(k) = 500;
+                  %end
               end
               valpos
               %if min(valpos)< 50
@@ -73,8 +68,8 @@ while length(unique(colour_indexing)) < 4
 
                   colour_indexing(res(j),1) = index2; 
                   
-                  min(valpos)
-                  distance = Eval_patch_pos(position_mem(res(j),:),position_cur(res(j),:))
+                  %min(valpos)
+                  %distance = Eval_patch_pos(position_mem(res(j),:),position_cur(res(j),:))
                   
                   % update the struct of the positions 
                   pos = position_cur(res(j)).Centroid;
@@ -90,7 +85,7 @@ while length(unique(colour_indexing)) < 4
           end
        end
    end
-end
+%end
 colour_indexing
 
     
